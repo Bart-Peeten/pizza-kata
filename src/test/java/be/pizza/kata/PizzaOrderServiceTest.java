@@ -43,17 +43,4 @@ class PizzaOrderServiceTest {
         assertEquals(expectedOrder.getPizza(), actualOrder.getPizza());
         assertEquals(expectedOrder.getSize(), actualOrder.getSize());
     }
-
-    @Test
-    void testEstimateDeliveryTime() {
-        // Arrange
-        String expectedTime = "20 minutes";
-
-        // Act
-        String actualTime = pizzaOrderService.estimateDeliveryTime();
-
-        // Assert
-        assertEquals(expectedTime, actualTime);
-    }
-
 }

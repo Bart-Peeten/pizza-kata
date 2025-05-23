@@ -24,8 +24,4 @@ public class DefaultPizzaOrderService implements PizzaOrderService {
         order.setSize(size);
         return pizzaOrderRepository.save(order);
     }
-
-    public String estimateDeliveryTime() {
-        return "20 minutes";
-    }
 }
