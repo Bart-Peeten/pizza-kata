@@ -3,6 +3,8 @@ package be.pizza.kata.service.impl;
 import be.pizza.kata.service.DeliveryTimeEstimatorService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Default implementation of {@link DeliveryTimeEstimatorService}.
  */
@@ -14,5 +16,10 @@ public class DefaultDeliveryTimeEstimatorService implements DeliveryTimeEstimato
     @Override
     public String estimateDeliveryTime() {
         return  BASE_TIME + " minutes";
+    }
+
+    @Override
+    public String estimateDeliveryTime(final List<String> toppings) {
+        return "";
     }
 }
