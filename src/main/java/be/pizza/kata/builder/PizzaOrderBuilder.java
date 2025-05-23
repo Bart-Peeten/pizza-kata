@@ -9,12 +9,12 @@ public class PizzaOrderBuilder {
     private String pizza;
     private String size;
 
-    public PizzaOrderBuilder setPizza(String pizza) {
+    public PizzaOrderBuilder withPizza(String pizza) {
         this.pizza = pizza;
         return this;
     }
 
-    public PizzaOrderBuilder setSize(String size) {
+    public PizzaOrderBuilder withSize(String size) {
         this.size = size;
         return this;
     }

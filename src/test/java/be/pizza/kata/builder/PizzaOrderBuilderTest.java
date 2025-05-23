@@ -16,7 +16,7 @@ class PizzaOrderBuilderTest {
         PizzaOrderBuilder builder = new PizzaOrderBuilder();
 
         // Act
-        PizzaOrderBuilder resultBuilder = builder.setPizza(pizza);
+        PizzaOrderBuilder resultBuilder = builder.withPizza(pizza);
 
         // Assert
         assertSame(builder, resultBuilder, "setPizza should return the builder instance");
@@ -29,7 +29,7 @@ class PizzaOrderBuilderTest {
         PizzaOrderBuilder builder = new PizzaOrderBuilder();
 
         // Act
-        PizzaOrderBuilder resultBuilder = builder.setSize(size);
+        PizzaOrderBuilder resultBuilder = builder.withSize(size);
 
         // Assert
         assertSame(builder, resultBuilder, "setSize should return the builder instance");
@@ -43,8 +43,8 @@ class PizzaOrderBuilderTest {
         PizzaOrderBuilder builder = new PizzaOrderBuilder();
 
         // Act
-        PizzaOrder order = builder.setPizza(pizza)
-                .setSize(size)
+        PizzaOrder order = builder.withPizza(pizza)
+                .withSize(size)
                .build();
 
         // Assert
@@ -61,8 +61,8 @@ class PizzaOrderBuilderTest {
         PizzaOrderBuilder builder = new PizzaOrderBuilder();
 
         // Act
-        PizzaOrder order = builder.setPizza(pizza)
-                .setSize(size)
+        PizzaOrder order = builder.withPizza(pizza)
+                .withSize(size)
                 .build();
 
         // Assert
