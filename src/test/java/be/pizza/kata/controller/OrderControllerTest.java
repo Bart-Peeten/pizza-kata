@@ -49,4 +49,20 @@ class OrderControllerTest {
         assertEquals("20 minutes", result.getEstimatedTime());
     }
 
+    @Test
+    void testPlaceOrderWithTopping() {
+        orderRequest = new OrderRequest();
+        orderRequest.setPizza("MARGHERITA");
+        orderRequest.setSize("MEDIUM");
+        orderRequest.setToppings("OLIVES");
+
+        when(pizzaOrderService.createOrder(orderRequest.getPizza(), orderRequest.getSize())).thenReturn(pizzaOrder);
+        when(pizzaOrder.getId()).thenReturn(uuid);
+        when(deliveryTimeEstimatorService.estimateDeliveryTime()).thenCallRealMethod();
+
+        final OrderResponse result = orderController.placeOrder(orderRequest);
+
+        assertEquals("22 minutes", result.getEstimatedTime());
+    }
+
 }
