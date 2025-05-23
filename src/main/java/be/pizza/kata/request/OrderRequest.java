@@ -8,6 +8,7 @@ public class OrderRequest {
 
     private String pizza;
     private String size;
+    private String toppings;
 
     public String getPizza() {
         return pizza;
@@ -23,5 +24,13 @@ public class OrderRequest {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public String getToppings() {
+        return toppings;
+    }
+
+    public void setToppings(final String toppings) {
+        this.toppings = toppings;
     }
 }
