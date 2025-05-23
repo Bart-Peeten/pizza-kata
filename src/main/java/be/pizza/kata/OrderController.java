@@ -27,7 +27,7 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public Map<String, String> order(@RequestBody Map<String, String> request) {
+    public Map<String, String> placeOrder(@RequestBody Map<String, String> request) {
         String pizza = request.get("pizza");
         String size = request.get("size");
 
