@@ -1,13 +1,12 @@
 package be.pizza.kata;
 
+import be.pizza.kata.request.OrderRequest;
+import be.pizza.kata.response.OrderResponse;
 import be.pizza.kata.service.DeliveryTimeEstimatorService;
 import be.pizza.kata.service.PizzaOrderService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class OrderController {
@@ -27,16 +26,10 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public Map<String, String> placeOrder(@RequestBody Map<String, String> request) {
-        String pizza = request.get("pizza");
-        String size = request.get("size");
-
-        PizzaOrder order = pizzaOrderService.createOrder(pizza, size);
+    public OrderResponse placeOrder(@RequestBody OrderRequest request) {
+        PizzaOrder order = pizzaOrderService.createOrder(request.getPizza(), request.getSize());
         String estimatedTime = deliveryTimeEstimatorService.estimateDeliveryTime();
 
-        Map<String, String> response = new HashMap<>();
-        response.put("orderId", order.getId().toString());
-        response.put("estimatedTime", estimatedTime);
-        return response;
+        return new OrderResponse(order.getId().toString(), estimatedTime);
     }
 }
