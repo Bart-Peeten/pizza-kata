@@ -67,4 +67,21 @@ class OrderControllerTest {
         assertEquals("22 minutes", result.getEstimatedTime());
     }
 
+    @Test
+    void testPlaceOrderWithMultipleToppings() {
+        orderRequest = new OrderRequest();
+        orderRequest.setPizza("MARGHERITA");
+        orderRequest.setSize("MEDIUM");
+        final List<String> toppings = List.of("OLIVES", "EXTRA_CHEESE");
+        orderRequest.setToppings(toppings);
+
+        when(pizzaOrderService.createOrder(orderRequest.getPizza(), orderRequest.getSize())).thenReturn(pizzaOrder);
+        when(pizzaOrder.getId()).thenReturn(uuid);
+        when(deliveryTimeEstimatorService.estimateDeliveryTime(toppings)).thenCallRealMethod();
+
+        final OrderResponse result = orderController.placeOrder(orderRequest);
+
+        assertEquals("24 minutes", result.getEstimatedTime());
+    }
+
 }
