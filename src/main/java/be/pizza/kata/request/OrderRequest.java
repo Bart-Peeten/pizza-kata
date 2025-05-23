@@ -1,5 +1,7 @@
 package be.pizza.kata.request;
 
+import java.util.List;
+
 /**
  * Represents a request to order a pizza.
  * This class contains information about the type of pizza and its size.
@@ -8,7 +10,7 @@ public class OrderRequest {
 
     private String pizza;
     private String size;
-    private String toppings;
+    private List<String> toppings;
 
     public String getPizza() {
         return pizza;
@@ -26,11 +28,11 @@ public class OrderRequest {
         this.size = size;
     }
 
-    public String getToppings() {
+    public List<String> getToppings() {
         return toppings;
     }
 
-    public void setToppings(final String toppings) {
+    public void setToppings(final List<String> toppings) {
         this.toppings = toppings;
     }
 }
