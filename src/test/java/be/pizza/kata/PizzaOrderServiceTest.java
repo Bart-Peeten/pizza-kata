@@ -1,5 +1,6 @@
 package be.pizza.kata;
 
+import be.pizza.kata.service.impl.DefaultPizzaOrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -18,7 +20,7 @@ class PizzaOrderServiceTest {
     private PizzaOrderRepository pizzaOrderRepository;
 
     @InjectMocks
-    private PizzaOrderService pizzaOrderService;
+    private DefaultPizzaOrderService pizzaOrderService;
 
     @Test
     void testCreateOrder() {
@@ -31,7 +33,7 @@ class PizzaOrderServiceTest {
         expectedOrder.setPizza(pizza);
         expectedOrder.setSize(size);
 
-        when(pizzaOrderRepository.save(expectedOrder)).thenReturn(expectedOrder);
+        when(pizzaOrderRepository.save(any(PizzaOrder.class))).thenReturn(expectedOrder);
 
         // Act
         PizzaOrder actualOrder = pizzaOrderService.createOrder(pizza, size);
@@ -53,4 +55,5 @@ class PizzaOrderServiceTest {
         // Assert
         assertEquals(expectedTime, actualTime);
     }
+
 }
