@@ -1,6 +1,6 @@
 package be.pizza.kata.builder;
 
-import be.pizza.kata.PizzaOrder;
+import be.pizza.kata.enitity.PizzaOrder;
 
 public class PizzaOrderBuilder {
 

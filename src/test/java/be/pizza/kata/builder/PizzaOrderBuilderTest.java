@@ -1,6 +1,6 @@
 package be.pizza.kata.builder;
 
-import be.pizza.kata.PizzaOrder;
+import be.pizza.kata.enitity.PizzaOrder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

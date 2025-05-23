@@ -1,5 +1,6 @@
 package be.pizza.kata;
 
+import be.pizza.kata.repository.PizzaOrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

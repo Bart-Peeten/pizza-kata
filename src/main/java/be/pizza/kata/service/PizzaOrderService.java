@@ -1,6 +1,6 @@
 package be.pizza.kata.service;
 
-import be.pizza.kata.PizzaOrder;
+import be.pizza.kata.enitity.PizzaOrder;
 
 /**
  * Service interface for creating pizza orders.

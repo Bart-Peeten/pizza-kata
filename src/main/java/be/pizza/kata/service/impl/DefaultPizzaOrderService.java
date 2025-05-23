@@ -1,7 +1,7 @@
 package be.pizza.kata.service.impl;
 
-import be.pizza.kata.PizzaOrder;
-import be.pizza.kata.PizzaOrderRepository;
+import be.pizza.kata.enitity.PizzaOrder;
+import be.pizza.kata.repository.PizzaOrderRepository;
 import be.pizza.kata.builder.PizzaOrderBuilder;
 import be.pizza.kata.service.PizzaOrderService;
 import org.springframework.stereotype.Service;
