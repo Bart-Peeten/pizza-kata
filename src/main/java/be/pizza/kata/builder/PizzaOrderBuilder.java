@@ -1,26 +1,30 @@
 package be.pizza.kata.builder;
 
+import be.pizza.kata.domain.Pizza;
 import be.pizza.kata.domain.PizzaOrder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PizzaOrderBuilder {
 
-    private String pizza;
-    private String size;
+    private final List<Pizza> pizzas = new ArrayList<>();
 
-    public PizzaOrderBuilder withPizza(String pizza) {
-        this.pizza = pizza;
+    public PizzaOrderBuilder withPizza(Pizza pizza) {
+        this.pizzas.add(pizza);
         return this;
     }
 
-    public PizzaOrderBuilder withSize(String size) {
-        this.size = size;
+    public PizzaOrderBuilder withPizzas(List<Pizza> pizzas) {
+        this.pizzas.addAll(pizzas);
         return this;
     }
 
     public PizzaOrder build() {
-        PizzaOrder pizzaOrder = new PizzaOrder();
-        pizzaOrder.setPizza(pizza);
-        pizzaOrder.setSize(size);
-        return pizzaOrder;
+        PizzaOrder order = new PizzaOrder();
+        for (Pizza pizza : pizzas) {
+            order.addPizza(pizza);
+        }
+        return order;
     }
 }

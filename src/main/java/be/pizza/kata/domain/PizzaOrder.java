@@ -1,33 +1,41 @@
 
 package be.pizza.kata.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Entity
 public class PizzaOrder {
 
-    private static final int BASE_TIME = 20;
-    private static final int TIME_PER_TOPPING = 2;
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name = "pizza", nullable = false)
-    private String pizza;
-    @Column(name = "size", nullable = false)
-    private String size;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pizza_order_id")
+    private List<Pizza> pizzas = new ArrayList<>();
 
     public String estimateDeliveryTime() {
-        return  BASE_TIME + " minutes";
+        int total = 0;
+        for (Pizza pizza : pizzas) {
+            total += pizza.calculatePreparationTime();
+        }
+        return total + " minutes";
     }
 
+    public void addPizza(Pizza pizza) {
+        pizzas.add(pizza);
+    }
 }
