@@ -65,4 +65,20 @@ public class OrderControllerTest {
         long countAfter = repository.count();
         assertThat(countAfter).isEqualTo(countBefore + 1);
     }
+
+    @Test
+    @Order(1)
+    void order_shouldReturnOrderIdAndEstimatedTimeWithToppings() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String requestJson = "{ \"pizza\": \"MARGHERITA\", \"size\": \"MEDIUM\",  \"toppings\": [\"olives\"] }";
+        HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
+
+        ResponseEntity<Map> response = restTemplate.postForEntity("/order", entity, Map.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).containsKeys("orderId", "estimatedTime");
+        assertThat(response.getBody().get("estimatedTime")).isEqualTo("22 minutes");
+        assertThat(response.getBody().get("orderId")).isNotNull();
+    }
 }

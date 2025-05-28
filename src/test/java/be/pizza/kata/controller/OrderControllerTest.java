@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,13 +50,29 @@ class OrderControllerTest {
         orderRequest.setPizza("MARGHERITA");
         orderRequest.setSize("MEDIUM");
 
-        when(pizzaOrderService.createOrder(orderRequest.getPizza(), orderRequest.getSize())).thenReturn(pizzaOrder);
+        when(pizzaOrderService.createOrder(orderRequest.getPizza(), orderRequest.getSize(), null)).thenReturn(pizzaOrder);
         when(pizzaOrder.getId()).thenReturn(uuid);
         when(deliveryTimeEstimatorService.estimateDeliveryTime(uuid)).thenReturn("20 minutes");
 
         final OrderResponse result = orderController.placeOrder(orderRequest);
 
         assertEquals("20 minutes", result.getEstimatedTime());
+    }
+
+    @Test
+    void testPlaceOrderWithToppings() {
+        orderRequest = new OrderRequest();
+        orderRequest.setPizza("MARGHERITA");
+        orderRequest.setSize("MEDIUM");
+        orderRequest.setToppings(List.of("olives"));
+
+        when(pizzaOrderService.createOrder(orderRequest.getPizza(), orderRequest.getSize(), orderRequest.getToppings())).thenReturn(pizzaOrder);
+        when(pizzaOrder.getId()).thenReturn(uuid);
+        when(deliveryTimeEstimatorService.estimateDeliveryTime(uuid)).thenReturn("22 minutes");
+
+        final OrderResponse result = orderController.placeOrder(orderRequest);
+
+        assertEquals("22 minutes", result.getEstimatedTime());
     }
 
 }
