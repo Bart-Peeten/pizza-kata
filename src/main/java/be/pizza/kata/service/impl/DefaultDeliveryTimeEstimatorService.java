@@ -1,10 +1,12 @@
 package be.pizza.kata.service.impl;
 
+import be.pizza.kata.enitity.PizzaOrder;
+import be.pizza.kata.repository.PizzaOrderRepository;
 import be.pizza.kata.service.DeliveryTimeEstimatorService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Default implementation of {@link DeliveryTimeEstimatorService}.
@@ -12,17 +14,20 @@ import java.util.List;
 @Service
 public class DefaultDeliveryTimeEstimatorService implements DeliveryTimeEstimatorService {
 
-    private static final int BASE_TIME = 20;
-    private static final int TIME_PER_TOPPING = 2;
+    private final PizzaOrderRepository pizzaOrderRepository;
 
-    @Override
-    public String estimateDeliveryTime() {
-        return  BASE_TIME + " minutes";
+    /**
+     * Ctor to create a new instance of the {@link DefaultDeliveryTimeEstimatorService}
+     *
+     * @param pizzaOrderRepository {@link PizzaOrderRepository}
+     */
+    public DefaultDeliveryTimeEstimatorService(final PizzaOrderRepository pizzaOrderRepository) {
+        this.pizzaOrderRepository = pizzaOrderRepository;
     }
 
     @Override
-    public String estimateDeliveryTime(final List<String> toppings) {
-        int additionalTime = !CollectionUtils.isEmpty(toppings) ? toppings.size() * TIME_PER_TOPPING : 0;
-        return (BASE_TIME + additionalTime) + " minutes";
+    public String estimateDeliveryTime(UUID orderId) {
+        final Optional<PizzaOrder> order = pizzaOrderRepository.findById(orderId);
+        return  order.isPresent() ? order.get().estimateDeliveryTime() : "Unknown";
     }
 }

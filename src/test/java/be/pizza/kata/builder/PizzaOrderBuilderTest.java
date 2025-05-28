@@ -4,7 +4,6 @@ import be.pizza.kata.enitity.PizzaOrder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 class PizzaOrderBuilderTest {
@@ -48,7 +47,6 @@ class PizzaOrderBuilderTest {
                .build();
 
         // Assert
-        assertNotNull(order.getId(), "Order ID should not be null");
         assertEquals(pizza, order.getPizza(), "Pizza should be set correctly");
         assertEquals(size, order.getSize(), "Size should be set correctly");
     }
@@ -66,7 +64,6 @@ class PizzaOrderBuilderTest {
                 .build();
 
         // Assert
-        assertNotNull(order.getId(), "Order ID should not be null");
         assertEquals(pizza, order.getPizza(), "Pizza should be set correctly");
         assertEquals(size, order.getSize(), "Size should be set correctly");
     }

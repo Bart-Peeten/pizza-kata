@@ -13,6 +13,9 @@ import java.util.UUID;
 @Entity
 public class PizzaOrder {
 
+    private static final int BASE_TIME = 20;
+    private static final int TIME_PER_TOPPING = 2;
+
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, updatable = false)
@@ -22,4 +25,9 @@ public class PizzaOrder {
     private String pizza;
     @Column(name = "size", nullable = false)
     private String size;
+
+    public String estimateDeliveryTime() {
+        return  BASE_TIME + " minutes";
+    }
+
 }

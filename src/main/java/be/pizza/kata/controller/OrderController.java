@@ -29,9 +29,7 @@ public class OrderController {
     @PostMapping("/order")
     public OrderResponse placeOrder(@RequestBody OrderRequest request) {
         PizzaOrder order = pizzaOrderService.createOrder(request.getPizza(), request.getSize());
-        String estimatedTime = request.getToppings() != null ?
-                deliveryTimeEstimatorService.estimateDeliveryTime(request.getToppings()) :
-                deliveryTimeEstimatorService.estimateDeliveryTime();
+        String estimatedTime = deliveryTimeEstimatorService.estimateDeliveryTime(order.getId());
 
         return new OrderResponse(order.getId().toString(), estimatedTime);
     }
