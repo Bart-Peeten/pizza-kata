@@ -1,6 +1,6 @@
 package be.pizza.kata.controller;
 
-import be.pizza.kata.enitity.PizzaOrder;
+import be.pizza.kata.domain.PizzaOrder;
 import be.pizza.kata.request.OrderRequest;
 import be.pizza.kata.response.OrderResponse;
 import be.pizza.kata.service.DeliveryTimeEstimatorService;

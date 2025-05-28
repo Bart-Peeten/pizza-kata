@@ -1,6 +1,6 @@
 package be.pizza.kata;
 
-import be.pizza.kata.enitity.PizzaOrder;
+import be.pizza.kata.domain.PizzaOrder;
 import be.pizza.kata.repository.PizzaOrderRepository;
 import be.pizza.kata.service.impl.DefaultPizzaOrderService;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,5 @@
 
-package be.pizza.kata.enitity;
+package be.pizza.kata.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
