@@ -3,6 +3,7 @@ package be.pizza.kata;
 import be.pizza.kata.domain.PizzaOrder;
 import be.pizza.kata.repository.PizzaOrderRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -69,6 +70,7 @@ class OrderControllerTestContainers {
         ResponseEntity<Map> response = restTemplate.postForEntity("/order", entity, Map.class);
         final String orderId = (String)response.getBody()
                 .get("orderId");
+        // try to get the order from the testContainer to be sure the PizzaOrder was really saved.
         final Optional<PizzaOrder> savedPizzaOrder = repository.findById(UUID.fromString((orderId)));
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -77,5 +79,37 @@ class OrderControllerTestContainers {
                 .get("estimatedTime")).isEqualTo("20 minutes");
         assertThat(orderId).isNotNull();
         assertThat(savedPizzaOrder).isPresent();
+    }
+
+    @Test
+    @Order(2)
+    void order_shouldBePersistedInDatabase() {
+        long countBefore = repository.count();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String requestJson = "{ \"pizza\": \"PEPPERONI\", \"size\": \"LARGE\" }";
+        HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
+
+        restTemplate.postForEntity("/order", entity, Map.class);
+
+        long countAfter = repository.count();
+        assertThat(countAfter).isEqualTo(countBefore + 1);
+    }
+
+    @Test
+    @Order(3)
+    void order_shouldReturnOrderIdAndEstimatedTimeWithToppings() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String requestJson = "{ \"pizza\": \"MARGHERITA\", \"size\": \"MEDIUM\",  \"toppings\": [\"olives\"] }";
+        HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
+
+        ResponseEntity<Map> response = restTemplate.postForEntity("/order", entity, Map.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).containsKeys("orderId", "estimatedTime");
+        assertThat(response.getBody().get("estimatedTime")).isEqualTo("22 minutes");
+        assertThat(response.getBody().get("orderId")).isNotNull();
     }
 }

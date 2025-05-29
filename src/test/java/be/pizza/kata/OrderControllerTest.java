@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class OrderControllerTest {
+class OrderControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -67,7 +67,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    @Order(1)
+    @Order(3)
     void order_shouldReturnOrderIdAndEstimatedTimeWithToppings() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
